@@ -1,0 +1,11 @@
+
+type Query{
+hello:String
+getCharacter:[Character]
+}
+
+ type Character {
+    id:ID
+    name:String
+    race:String
+}
