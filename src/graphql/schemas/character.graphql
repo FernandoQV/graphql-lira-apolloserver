@@ -7,5 +7,10 @@ getCharacter:[Character]
  type Character {
     id:ID
     name:String
-    race:String
+    race:Race
+}
+enum Race {
+    Hylian
+    Garrudo
+    Fairy
 }

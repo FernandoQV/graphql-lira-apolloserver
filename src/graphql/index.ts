@@ -1,12 +1,10 @@
-import {GraphQLSchema} from 'graphql'
-import {makeExecutableSchema} from 'graphql-tools'
-import 'graphql-import-node'
-import rootSchema from './schemas/schema.graphql'
-import resolvers from './resolvers/resolverMap'
-export const schema:GraphQLSchema=makeExecutableSchema({
-    typeDefs:[
-        rootSchema
-    ],
-    resolvers
-    
-})
+import { GraphQLSchema } from "graphql";
+import "graphql-import-node";
+import character from "./schemas/character.graphql";
+import game from "./schemas/game.gql";
+import {resolvers} from "./resolvers";
+import { mergeSchemas } from "apollo-server-core/node_modules/graphql-tools";
+export const schema: GraphQLSchema = mergeSchemas({
+  schemas: [character,game],
+  resolvers,
+});
