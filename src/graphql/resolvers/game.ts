@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
 
-export const game: IResolvers = {
+export const gameResolver: IResolvers = {
   Query: {
    helloGame:()=>{return 'Hola Gmae'},
     getGame: () => {

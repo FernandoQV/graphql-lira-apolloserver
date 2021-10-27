@@ -1,0 +1,34 @@
+{
+    "characters": [
+        {
+            "_id": "1",
+            "name": "Link",
+            "gender": "MALE",
+            "race": "Hylian",
+            "games": [
+                "1",
+                "2"
+            ]
+        },
+        {
+            "_id": "2",
+            "name": "Zelda",
+            "gender": "FEMALE",
+            "race": "Hylian",
+            "games": [
+                "1"
+            ]
+        }
+    ],
+    "games": [
+        {
+            "_id": "1",
+            "title": "Ocarina of Time"
+        },
+        {
+            "_id": "2",
+            "title": "Majora's Mask"
+        }
+    ]
+}
+

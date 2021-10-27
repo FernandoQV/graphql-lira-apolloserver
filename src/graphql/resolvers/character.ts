@@ -1,5 +1,5 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
-export const character: IResolvers = {
+export const characterResolver: IResolvers = {
   Query: {
     hello: () => {
       return "Hello Wolr Tony";
