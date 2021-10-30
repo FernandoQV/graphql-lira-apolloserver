@@ -6,12 +6,13 @@ getCharacter(id:ID!):Character
 
 }
  type Mutation {
-     createCharacter(character:NewCharacterInput):Character
+     createCharacter(character:NewCharacterInput):String
  }
  input NewCharacterInput {
      name:String!
      race:Race!
      gender:Gender!
+     image:String
  }
  type Character {
     _id:ID
@@ -19,6 +20,7 @@ getCharacter(id:ID!):Character
     gender:Gender
     race:Race
     games:[Game]
+    image:String
     countGames:Int
 }
 enum Race {
