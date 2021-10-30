@@ -5,7 +5,14 @@ getCharacters:[Character]
 getCharacter(id:ID!):Character
 
 }
-
+ type Mutation {
+     createCharacter(character:NewCharacterInput):Character
+ }
+ input NewCharacterInput {
+     name:String!
+     race:Race!
+     gender:Gender!
+ }
  type Character {
     _id:ID
     name:String

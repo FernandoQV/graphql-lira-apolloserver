@@ -12,7 +12,16 @@ export const characterResolver: IResolvers = {
       const [found]=data.characters.filter(ch=>ch._id=args.id)
       return found
     }
-  }, //campo calculado con lo apredndido en midudev
+  },
+  Mutation:{
+      createCharacter:(_,args)=>{
+        const {name,race,gender}=args.character
+        const newCharacter={_id:data.characters.length.toString(),name,race,gender,games:[]}
+        data.characters.push(newCharacter)
+        return newCharacter
+      }
+  },
+  //campo calculado con lo apredndido en midudev
   Character: {
     games: (root) => {
       const gamesList: Array<any> = [];
