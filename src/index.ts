@@ -11,7 +11,7 @@ const server = new ApolloServer({
   schema,
   playground: true,
   introspection: true,
-  context:async()=>new MongoLib().connect()
+  context:()=>new MongoLib().connect()
 });
 
 server.applyMiddleware({ app });

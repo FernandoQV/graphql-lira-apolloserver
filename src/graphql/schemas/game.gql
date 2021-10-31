@@ -1,8 +1,16 @@
 type Query {
-  helloGame: String
-  getGame: [Game]
+  getGames: [Game]
+}
+type Mutation {
+  createGame(game: NewGameInput!): Game
 }
 type Game {
-  id: ID!
+  _id: ID!
   title: String!
+  developers: [Developer]
+}
+
+input NewGameInput {
+  title: String!
+  developers: [String!]!
 }

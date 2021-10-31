@@ -1,23 +1,40 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
+import { ObjectID } from "bson";
+import { Db } from "mongodb";
+import { DEVELOPERS_COLLECTIONS, GAMES_COLLECTIONS } from "../../mongo/collections";
+
 
 export const gameResolver: IResolvers = {
   Query: {
-   helloGame:()=>{return 'Hola Gmae'},
-    getGame: () => {
-      return [
-        {
-          id: 1,
-          name: "Game 1",
-          desc: "Big Big Amazing",
-        },
-        {
-          id: 2,
-          name: "Game 2",
-          desc: "Game very fast",
-        },
-      ];
+    getGames: async (root, args, context: Db) => {
+      try {
+        return await context.collection(GAMES_COLLECTIONS).find().toArray();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  Mutation: {
+    createGame: async (_, args, context: Db) => {
+      try {
+        const { game } = args;
+        const newGame = await context
+          .collection(GAMES_COLLECTIONS)
+          .insertOne(game);
+        return { _id: newGame.insertedId, ...game };
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  Game: {
+    developers: async (root, args, context: Db) => {
+      const { developers } = root;
+      const developersList=await developers.map((devId:string)=>{
+            return  context.collection(DEVELOPERS_COLLECTIONS).findOne({_id:new ObjectID(devId)})
+            //graphql se esperaa a que se recuelva la promesa y nos dara el valor, sin importar que aun no se hay resuelto en consola
+      })
+      return developersList
     },
   },
 };
-
-

@@ -1,5 +1,5 @@
 //creamos la clsae de coneccion mongo db
-import { MongoClient, Db, MongoClientOptions } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 import config from "../config";
 export default class MongoLib {
   private client: MongoClient;

@@ -1,6 +1,7 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
 import { Db } from "mongodb";
 import data from "../../data/data.json";
+import { CHARACTERS_COLLECTIONS } from "../../mongo/collections";
 export const characterResolver: IResolvers = {
   Query: {
     hello: () => {
@@ -8,7 +9,7 @@ export const characterResolver: IResolvers = {
     },
     getCharacters: async (root: void, args: void, context: Db) => {
       try {
-        return await context.collection('characters').find().toArray()
+        return await context.collection(CHARACTERS_COLLECTIONS).find().toArray()
       } catch (error) {
         console.log(error);
         
@@ -22,7 +23,9 @@ export const characterResolver: IResolvers = {
   Mutation: {
     createCharacter:async (_, args,context:Db) => {
       try {
-        await context.collection('characters').insertOne(args.character)
+        console.log(args.character);
+        
+        await context.collection(CHARACTERS_COLLECTIONS).insertOne(args.character)
         return 'Exito al guardar'
       } catch (e) {
         console.log(e)
