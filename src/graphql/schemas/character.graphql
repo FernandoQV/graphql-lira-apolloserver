@@ -1,12 +1,13 @@
 
 type Query{
-hello:String
 getCharacters:[Character]
 getCharacter(id:ID!):Character
 
 }
  type Mutation {
-     createCharacter(character:NewCharacterInput):String
+     createCharacter(character:NewCharacterInput):String!
+    editCharacter(id:ID!,
+    character:EditCharacterInput!):String!
  }
  input NewCharacterInput {
      name:String!
@@ -14,9 +15,16 @@ getCharacter(id:ID!):Character
      gender:Gender!
      image:String
  }
+ input EditCharacterInput {
+     name:String
+     race:Race
+     gender:Gender
+     image:String
+     games:[String]
+ }
  type Character {
-    _id:ID
-    name:String
+    _id:ID!
+    name:String!
     gender:Gender
     race:Race
     games:[Game]

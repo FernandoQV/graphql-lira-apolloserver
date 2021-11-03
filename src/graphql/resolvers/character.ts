@@ -1,12 +1,11 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
+import { ObjectID } from "bson";
 import { Db } from "mongodb";
 import data from "../../data/data.json";
-import { CHARACTERS_COLLECTIONS } from "../../mongo/collections";
+import { CHARACTERS_COLLECTIONS, GAMES_COLLECTIONS } from "../../mongo/collections";
 export const characterResolver: IResolvers = {
   Query: {
-    hello: () => {
-      return "Hello Wolr Tony";
-    },
+    
     getCharacters: async (root: void, args: void, context: Db) => {
       try {
         return await context.collection(CHARACTERS_COLLECTIONS).find().toArray()
@@ -15,9 +14,10 @@ export const characterResolver: IResolvers = {
         
       }
     },
-    getCharacter: (root, args) => {
-      const [found] = data.characters.filter((ch) => (ch._id = args.id));
-      return found;
+    getCharacter:async (root, args,context:Db) => {
+      const {id}=args
+      const characterFound=await context.collection(CHARACTERS_COLLECTIONS).findOne({_id:new ObjectID(id)})
+      return characterFound ||null
     },
   },
   Mutation: {
@@ -31,18 +31,34 @@ export const characterResolver: IResolvers = {
         console.log(e)
       }
     },
+    editCharacter:async(_,args,context:Db)=>{
+      try {
+        const {id,character}=args
+        const ch=await context.collection(CHARACTERS_COLLECTIONS).findOne({_id:new ObjectID(id) })
+        
+        if(ch){
+          const editCharacter=await context.collection(CHARACTERS_COLLECTIONS).updateOne({_id:new ObjectID(id)},{$set:character})
+        }
+        return 'Character Encontrado'
+      } catch (error) {
+        console.log(error);
+        return 'No encontrado'
+      }  
+
+
+    }
   },
   //campo calculado con lo apredndido en midudev
   Character: {
-    games: (root) => {
-      const gamesList: Array<any> = [];
-      root.games.map((idGame: string) => {
-        gamesList.push(...data.games.filter((game) => game._id === idGame));
-      });
-      return gamesList;
+    games:async (root,args,context:Db) => {
+      const {games}=root
+      const gamesList=games?.map(async(idGame:string)=>{
+       return await context.collection(GAMES_COLLECTIONS).findOne({_id:new ObjectID(idGame)})
+      })
+      return gamesList||[]
     },
     countGames: (root) => {
-      return root.games.length;
+      return root.games?.length || 0;
     },
   },
 };
