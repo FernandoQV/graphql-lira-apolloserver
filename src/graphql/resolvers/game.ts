@@ -1,8 +1,10 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
 import { ObjectID } from "bson";
 import { Db } from "mongodb";
-import { DEVELOPERS_COLLECTIONS, GAMES_COLLECTIONS } from "../../mongo/collections";
-
+import {
+  DEVELOPERS_COLLECTIONS,
+  GAMES_COLLECTIONS,
+} from "../../mongo/collections";
 
 export const gameResolver: IResolvers = {
   Query: {
@@ -26,15 +28,27 @@ export const gameResolver: IResolvers = {
         console.log(error);
       }
     },
+    editGame: async (_, args, context: Db) => {
+      const { id, game } = args;
+      const gameEdited = await context.collection(GAMES_COLLECTIONS).updateOne(
+        { _id: new ObjectID(id) },
+        {
+          $set: game,
+        }
+      );
+      return gameEdited.modifiedCount > 0 ? "Exitoo" : "No se pudo modificar";
+    },
   },
   Game: {
     developers: async (root, args, context: Db) => {
       const { developers } = root;
-      const developersList=await developers.map((devId:string)=>{
-            return  context.collection(DEVELOPERS_COLLECTIONS).findOne({_id:new ObjectID(devId)})
-            //graphql se esperaa a que se recuelva la promesa y nos dara el valor, sin importar que aun no se hay resuelto en consola
-      })
-      return developersList
+      const developersList = developers.map(async (devId: string) => {
+        return await context
+          .collection(DEVELOPERS_COLLECTIONS)
+          .findOne({ _id: new ObjectID(devId) });
+        //graphql se esperaa a que se recuelva la promesa y nos dara el valor, sin importar que aun no se hay resuelto en consola
+      });
+      return developersList;
     },
   },
 };

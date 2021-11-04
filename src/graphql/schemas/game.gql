@@ -3,6 +3,7 @@ type Query {
 }
 type Mutation {
   createGame(game: NewGameInput!): Game
+  editGame(id:ID!,game: EditGameInput!): String
 }
 type Game {
   _id: ID!
@@ -13,4 +14,9 @@ type Game {
 input NewGameInput {
   title: String!
   developers: [String!]!
+}
+
+input EditGameInput {
+  title: String
+  developers: [String!]
 }

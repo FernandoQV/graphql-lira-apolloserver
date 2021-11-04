@@ -1,14 +1,25 @@
-type Query{
-    getDevelopers:[Developer]
-    getDeveloper(id:ID!):Developer
+type Query {
+  getDevelopers: [Developer]
+  getDeveloper(id: ID!): Developer
 }
-type Mutation{
-    createDeveloper(dev:NewDeveloperInput):Developer
+type Mutation {
+  createDeveloper(dev: NewDeveloperInput): Developer
+  editDeveloper(id: ID!, dev: EditDeveloperInput!): String
+  deleteDeveloper(id: ID!): String
 }
 type Developer {
-_id:ID!
-username:String!
+  _id: ID!
+  username: String!
+  avatar: String
+  email: String
 }
 input NewDeveloperInput {
-    username:String!
+  username: String!
+  avatar: String
+  email: String
+}
+input EditDeveloperInput {
+  username: String!
+  avatar: String
+  email: String
 }
