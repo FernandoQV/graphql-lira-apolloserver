@@ -1,7 +1,7 @@
 import { IResolvers } from "apollo-server-core/node_modules/graphql-tools";
 import { ObjectID } from "bson";
 import { Db } from "mongodb";
-import data from "../../data/data.json";
+
 import { ICharacter } from "../../interfaces/iCharacter";
 import { CHARACTERS_COLLECTIONS, GAMES_COLLECTIONS } from "../../mongo/collections";
 export const characterResolver: IResolvers = {

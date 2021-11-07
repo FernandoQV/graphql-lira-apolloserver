@@ -29,6 +29,26 @@
             "_id": "2",
             "title": "Majora's Mask"
         }
+    ],
+    "people":[
+{
+    "_id":"1",
+    "name": "Link",
+    "address": "Kokiri Forests",
+    "age": 10
+},
+{
+    "_id":"2",
+    "name": "Goku",
+    "address": "Kokiri Forests",
+    "age": 10
+},
+{
+    "_id":"3",
+    "name": "Zelda",
+    "address": "Hylian Castle",
+    "mesDate": "Oct"
+}
     ]
 }
 
