@@ -9,10 +9,31 @@ export const personResolvers: IResolvers = {
 
       return foundPerson || null;
     },
+    getPersons: (_, args: void) => {
+      return data.people || null;
+    },
   },
   Person: {
     __resolveType(obj: any) {
-      return obj.age?'Male':'Female'
+      return obj.age ? "Male" : "Female";
     },
+  },
+  Male: {
+    countries: (root) => {
+      const countries: any = [];
+      data.countries.forEach(({_id}) => {
+        countries.push(...data.countries.filter((c) => c._id === _id));
+      });
+      return countries;
+    },
+  },
+  Country: {
+    people:(root)=>{
+      const people:any=[]
+      data.people.forEach(({_id}) => {
+        people.push(...data.people.filter(p=>p._id===_id))
+      });
+      return people||null
+    }
   },
 };

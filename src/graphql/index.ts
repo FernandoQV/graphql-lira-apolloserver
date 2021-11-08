@@ -9,7 +9,10 @@ import { gameResolver } from "./resolvers/game";
 import { characterResolver } from "./resolvers/character";
 import { developerResolver } from "./resolvers/developer";
 import { personResolvers } from "./resolvers/person";
+
+
 export const schema: GraphQLSchema = mergeSchemas({
+  mergeDirectives:true,
   schemas: [character,game,developer,person],
   resolvers:[
     gameResolver,
@@ -17,4 +20,5 @@ export const schema: GraphQLSchema = mergeSchemas({
     developerResolver,
     personResolvers
   ],//el weon de mlira alucion y dijo que no habia forma nativa de hacer merge y no se dio cuenta o nos dimos cuenta, que el puto modulo dice MERGE
+
 });

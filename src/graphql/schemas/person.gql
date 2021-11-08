@@ -7,16 +7,24 @@ interface GeneralData {
   _id: String!
   name: String
   address: String
+  countries:[Country]
 }
 type Male implements GeneralData {
   _id:String!
   name: String
   address: String
   age: Int
+  countries:[Country]
 }
 type Female implements GeneralData {
   _id: String!
   name: String
   address: String
   mesDate: String
+  countries:[Country]
+}
+type Country {
+  _id:String!
+  name:String
+  people:[Person]
 }

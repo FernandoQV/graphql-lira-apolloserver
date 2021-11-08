@@ -35,7 +35,10 @@
     "_id":"1",
     "name": "Link",
     "address": "Kokiri Forests",
-    "age": 10
+    "age": 10,
+    "countries":[
+        "1"
+    ]
 },
 {
     "_id":"2",
@@ -49,6 +52,15 @@
     "address": "Hylian Castle",
     "mesDate": "Oct"
 }
+    ],
+    "countries":[
+        {
+            "_id":"1",
+            "name":"Hyrule",
+            "people":[
+                "1"
+            ]
+        }
     ]
 }
 
